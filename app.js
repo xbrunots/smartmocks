@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 3700;
 
 
-app.get('/', (req, res) => {
+app.get(['/', '/api'], (req, res) => {
     res.json({
         apiVersion: '0.0.1-alpha'
     })
