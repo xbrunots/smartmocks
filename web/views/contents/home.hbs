@@ -1,0 +1,315 @@
+<style>
+    body {
+        display: block;
+        width: 94%;
+        padding-left: 3%;
+    }
+
+    x-button {
+        /*width: 80% !important; */
+    }
+
+    .home_container {
+        padding-bottom: 50px;
+        padding-top: 10px;
+        padding-left: 12%;
+        padding-right: 12%;
+        -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 33.33333%);
+        display: grid;
+        grid-row-gap: 10px;
+        grid-column-gap: 10px;
+    }
+
+    .home_container>x-button {
+        display: flex !important;
+        min-height: 3rem;
+        margin: 0px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        color: black;
+    }
+
+    .home_container>x-button:hover {
+        width: 100%;
+        height: 100%;
+
+        background: #eeeeee;
+    }
+
+    .home_container>x-button>x-card>main {
+        padding: 20px !important;
+    }
+
+    .home_container>x-button>x-card {
+        box-shadow: 0px 0px 0px #ffffff !important;
+        margin: 0px !important;
+        background: transparent;
+    }
+
+    .home_container>x-button>x-card>main>strong,
+    .home_container>x-button>x-card>main>p {
+        text-transform: initial;
+    }
+
+    .home_container>x-button>x-card>main>p {
+        margin: 0;
+        width: 100%;
+        color: dimgray;
+    }
+
+    .home_container>x-button>x-card>main>strong {
+        font-size: 20px;
+        width: 100%;
+    }
+
+    .home_container>x-button>x-card>i {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 18px;
+        color: #fff;
+    }
+
+    #homeBtnNewProject {
+        border-radius: 30px;
+        opacity: 1.009;
+        color: rgb(255, 255, 255);
+        padding: 10px 40px;
+        cursor: pointer;
+        text-transform: lowercase;
+        font-weight: 500;
+        border: 1px solid black;
+        background: black;
+        position: absolute;
+        right: 13%;
+    }
+
+    #homeBtnNewProject>x-label {
+        padding-left: 3px;
+        font-size: 18px;
+    }
+
+
+    .home-projects-tools>p {
+        font-size: 16px;
+        font-weight: 700;
+        color: #00000042;
+        cursor: context-menu;
+    }
+
+    .home-projects-tools {
+        padding-bottom: 5px;
+        padding-top: 10px;
+        padding-left: 12%;
+        padding-right: 12%;
+        height: 40px;
+        display: flex;
+    }
+
+    .home-header-container {
+        padding-bottom: 5px;
+        padding-top: 10px;
+        padding-left: 12%;
+        padding-right: 12%;
+        height: 40px;
+        display: flex;
+        margin-bottom: 80PX;
+    }
+
+    .home-header-container>h1 {
+        width: 100%;
+        display: flex;
+        font-weight: 200;
+    }
+
+    .home-header-container>h1>p {
+        margin: 0;
+        margin-left: 6px;
+        display: inline-table;
+        cursor: pointer;
+        font-weight: 900;
+    }
+
+    .home-header-container>h1>p:hover {}
+
+    .home-header-container>h1>i {
+        margin: 10px;
+    }
+
+    .home-sidebar-new-project {
+        position: fixed;
+        z-index: 9999;
+        background: #eeeeee;
+        top: 0;
+        right: -100%;
+        height: 100%;
+        width: 100%;
+    }
+
+    .home-sidebar-new-project>div {
+        padding: 80px;
+        padding-top: 80px;
+    }
+
+    .home-sidebar-new-project>div>div {
+        display: flex;
+    }
+
+    .home-sidebar-new-project>div>div>x-button {
+        cursor: pointer;
+    }
+
+    .home-sidebar-new-project>div>div>p {
+        margin: -1px;
+        font-size: 22px;
+        cursor: default;
+    }
+
+    .new-project-title {
+        color: gray;
+    }
+
+    .new-project-name {
+        width: 430px;
+        font-weight: 700;
+    }
+
+    .new-project-input {
+        font-size: 30px;
+        min-width: 400px;
+        margin-top: 50px;
+        margin-left: -30px;
+        color: #2196F3;
+        height: 73px !important;
+        padding-top: 18px;
+    }
+
+    .new-project-main {
+        float: left;
+        margin-top: 60px;
+        margin-left: 50px;
+        font-size: 30px;
+    }
+
+    .new-project-confirm {
+        border-radius: 30px;
+        opacity: 1.00365;
+        color: rgb(255, 255, 255);
+        padding: 10px 40px;
+        cursor: pointer;
+        text-transform: lowercase;
+        font-weight: 500;
+        border: 1px solid black;
+        background: black;
+        margin-top: 60px;
+    }
+
+    .new-project-confirm>x-label {
+        padding-left: 3px;
+        font-size: 18px;
+    }
+
+    .new-project-input>span {
+        margin: 0px;
+        padding: 0px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #0000005e;
+        position: absolute;
+        bottom: -40px;
+        left: 0px;
+        padding-right: 10px;
+        padding-left: 10px;
+        border-radius: 50px;
+        padding-bottom: 4px;
+    }
+
+    .new-project-input>span>i {
+        padding-right: 5px;
+        font-size: 14px;
+    }
+</style>
+<script>
+    $(document).on('click', '#homeBtnNewProject', function () {
+        $('.new-project-input>span').html('   <i class="fas fa-rocket"></i>' +
+            GLOBAL.generateRandomName().replace(/[^\w\-]+/g, '-').toLowerCase() +
+            "-" + GLOBAL.ENCODE($('.new-project-input').attr('tag')))
+        $('.home-sidebar-new-project').animate({
+            right: '0px'
+        })
+    })
+
+    $(document).on('click', '.home-sidebar-new-project>div>div>x-button', function () {
+        $('.home-sidebar-new-project').animate({
+            right: '-100%'
+        })
+    })
+
+    $(document).on('keyup', '.new-project-input', function (evt) {
+        var keyPress = $('.new-project-input').val().trim()
+        var str = keyPress.replace(/\s/g, '-');
+        var name = str.replace(" ", "-").toLowerCase()
+        name = name.replace("--", "-").toLowerCase()
+        var newName = name.replace(/[^\w\-]+/g, '-');
+        $('.new-project-input>span').html('   <i class="fas fa-rocket"></i>' + GLOBAL.removeAcentos(newName) + "-" + GLOBAL.ENCODE($(this).attr('tag')))
+    })
+
+
+</script>
+<div class="home-header-container">
+    <h1>Hey <p> @{{data.username}}</p>, seja bem vindo! <i class="far fa-grin-stars"></i></h1>
+</div>
+<div class="home-projects-tools">
+
+    <p tooltip="{{projects.length}} projetos ativos">Meus Projetos </p>
+
+    <x-button id="homeBtnNewProject" role="button" aria-disabled="false" tabindex="0">
+        <x-label><i class="fas fa-plus" style="margin-right: 8px;     font-size: 13px;"></i>criar
+            projeto</x-label>
+    </x-button>
+
+</div>
+<div class="home_container">
+
+    {{#each projects}}
+    <x-button>
+        <x-card>
+            <main>
+                <strong>{{name}}</strong>
+                <p>{{bundle}}</p>
+            </main>
+            <i class="fas fa-rocket"></i>
+        </x-card>
+    </x-button>
+    {{/each}}
+
+</div>
+<div class="home-sidebar-new-project">
+    <div>
+        <div>
+            <x-button skin="flat">
+                <x-icon class="new-project-title" name="close"></x-icon>
+            </x-button>
+            <p class="new-project-title"> novo projeto (passo 1 de 2)</p>
+        </div>
+        <main class="new-project-main">
+            <x-label class="new-project-name">De um nome ao seu projeto, isso pode ser alterado depois ;)</x-label>
+            <x-input minlength="3" maxlength="30" tag="{{size}}" class="new-project-input" id="project-name"
+                skin="flat">
+                <x-label>Nome do projeto</x-label>
+                <span flow="down" tooltip="Bundle - indentificador único do projeto">
+                    <i class="fas fa-rocket"></i>
+
+                </span>
+            </x-input>
+            <x-button id="btn_confirm_new_project" class="new-project-confirm" role="button" aria-disabled="false"
+                tabindex="0">
+                <x-label>Confirmar</x-label>
+            </x-button>
+        </main>
+
+    </div>
+</div>

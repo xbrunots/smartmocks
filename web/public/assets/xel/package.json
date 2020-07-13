@@ -1,0 +1,78 @@
+{
+  "_from": "xel",
+  "_id": "xel@0.0.223",
+  "_inBundle": false,
+  "_integrity": "sha512-b3BySAPqmI70EIFg08mx2e+cbh1oRLzGkPtyddFCFWFU63pnfPK4oMeNm41ymzFaETeJIib83Fyqpd7YLQ3UGQ==",
+  "_location": "/xel",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "xel",
+    "name": "xel",
+    "escapedName": "xel",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/xel/-/xel-0.0.223.tgz",
+  "_shasum": "943a4393c381bd34246ff133c1c30200fffbb44d",
+  "_spec": "xel",
+  "_where": "/mnt/c/Projects/Bruno Brito Corporation/heroku/smartmocks",
+  "author": {
+    "name": "Jarosław Foksa"
+  },
+  "bugs": {
+    "url": "https://github.com/jarek-foksa/xel/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Widget toolkit for building native-like Electron, NW.js and Chrome apps",
+  "devDependencies": {
+    "fs-extra": "7.0.1",
+    "prismjs": "1.16.0",
+    "rollup": "1.9.0"
+  },
+  "homepage": "https://xel-toolkit.org/",
+  "keywords": [
+    "material",
+    "design",
+    "widget",
+    "toolkit",
+    "electron",
+    "nwjs",
+    "nw.js",
+    "macOS",
+    "desktop",
+    "ui",
+    "button",
+    "slider",
+    "tabs",
+    "card",
+    "menu",
+    "menubar",
+    "checkbox",
+    "radio",
+    "switch",
+    "select",
+    "dialog",
+    "drawer",
+    "popover",
+    "slider",
+    "throbber"
+  ],
+  "license": "MIT",
+  "name": "xel",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarek-foksa/xel.git"
+  },
+  "scripts": {
+    "start": "firebase serve --only hosting"
+  },
+  "version": "0.0.223"
+}

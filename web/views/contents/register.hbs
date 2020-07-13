@@ -1,0 +1,44 @@
+<div class="center" style="height: 900px;">
+    <x-card class="login-card">
+        <main>
+            <div class="center">
+                <img src="/assets/logo_transparent.png">
+            </div>
+            <main class="main-inputs center">
+
+                <x-input id="register-name" class="login-inputs" skin="flat" required="" role="input"
+                    aria-disabled="false" aria-readonly="false" tabindex="0" empty="">
+                    <x-label class="login-inputs-childrens">nome</x-label>
+                </x-input>
+
+                <x-input id="register-email" class="login-inputs" skin="flat" type="email" required="" role="input"
+                    aria-disabled="false" aria-readonly="false" tabindex="0" empty="">
+                    <x-label class="login-inputs-childrens">e-mail</x-label>
+                </x-input>
+
+                <x-input id="register-password1" class="login-inputs" skin="flat" type="password" minlength="6" value=""
+                    required="" role="input" aria-disabled="false" aria-readonly="false" tabindex="0" empty="">
+                    <x-label class="login-inputs-childrens">senha</x-label>
+                </x-input>
+
+                <x-input id="register-password2" class="login-inputs" skin="flat" type="password" minlength="6" value=""
+                    required="" role="input" aria-disabled="false" aria-readonly="false" tabindex="0" empty="">
+                    <x-label class="login-inputs-childrens">repita a senha</x-label>
+                </x-input>
+
+
+            </main>
+
+        </main>
+        <div class="center" style="
+    display: grid;">
+            <x-button class="login-buttons btn-criar-usuario" role="button" aria-disabled="false" tabindex="0">
+                <x-label>Cadastrar</x-label>
+            </x-button>
+            <x-button skin="flat" class="login-buttons btn-ir-login" role="button" aria-disabled="false" tabindex="0">
+                <x-label>efetuar o Login</x-label>
+            </x-button>
+        </div>
+    </x-card>
+
+</div>

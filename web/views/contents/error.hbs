@@ -1,0 +1,46 @@
+<script>
+    window.onload = initPage;
+    function initPage() {
+        fadeIn(document.getElementById("btn_error_404"), 1000);
+    }
+    function fadeIn(el, time) {
+        el.style.opacity = 0;
+
+        var last = +new Date();
+        var tick = function () {
+            el.style.opacity = +el.style.opacity + (new Date() - last) / time;
+            last = +new Date();
+
+            if (+el.style.opacity < 1) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+            }
+        };
+
+        tick();
+    }
+
+
+    function btn404goHome() {
+
+        window.location.href = "./index";
+
+    }
+</script>
+
+<div>
+    <lottie-player src=" https://assets2.lottiefiles.com/packages/lf20_NlLnID.json" background="transparent" speed="1"
+        style="width: 500px; height: 450px;" autoplay>
+    </lottie-player>
+    <div style=" 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    ">
+        <x-button id="btn_error_404" onclick="btn404goHome()" role="button" aria-disabled="false" tabindex="0"
+            style="border-radius: 30px;opacity: 1.00365;color: rgb(255, 255, 255);padding: 10px 40px;cursor: pointer;text-transform: lowercase;font-weight: 500;border: 1px solid black;background: black;">
+
+            <x-label style="padding-left: 3px;font-size: 18px;">Ir para Home</x-label>
+        </x-button>
+
+    </div>
+</div>

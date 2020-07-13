@@ -1,0 +1,16 @@
+{
+    "prod": {
+        "user": "dsfcscevsiedjn",
+        "password": "0d45609e961e85a15d2ba5eb15583135a5243df3445f6c70036308d73d0df188",
+        "database": "de7j90ua8k0esa",
+        "host": "ec2-52-72-65-76.compute-1.amazonaws.com",
+        "port": 5432
+    },
+    "dev": {
+        "user": "postgres",
+        "password": "123456",
+        "database": "postgres",
+        "host": "127.0.0.1",
+        "port": 5432
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "home": {
+        "Endpoint": "home",
+        "colors": {
+            "background1": "#eeeeee",
+            "background2": "#FFFFFF",
+            "textPrimary": "#000000",
+            "textSecundary": "#141414"
+        }
+    },
+    "homeDark": {
+        "Endpoint": "home",
+        "colors": {
+            "background1": "#000000",
+            "background2": "#141414",
+            "textPrimary": "#FFFFFF",
+            "textSecundary": "#EEEEEE"
+        }
+    }
+}

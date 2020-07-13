@@ -1,0 +1,31 @@
+<div class="center" style="height: 900px;">
+    <x-card class="login-card">
+        <main>
+            <div class="center">
+                <img src="/assets/logo_transparent.png">
+            </div>
+            <main class="main-inputs-login center">
+                <x-input id="login-email" class="login-inputs" skin="flat" type="email" required="" role="input"
+                    aria-disabled="false" aria-readonly="false" tabindex="0" empty="">
+                    <x-label class="login-inputs-childrens">e-mail</x-label>
+                </x-input>
+
+                <x-input id="login-password" class="login-inputs" skin="flat" type="password" minlength="6" value=""
+                    required="" role="input" aria-disabled="false" aria-readonly="false" tabindex="0" empty="">
+                    <x-label class="login-inputs-childrens">senha</x-label>
+                </x-input>
+            </main>
+
+        </main>
+        <div class="center" style="
+    display: grid;">
+            <x-button class="login-buttons btn-entrar" role="button" aria-disabled="false" tabindex="0">
+                <x-label>Entrar</x-label>
+            </x-button>
+            <x-button skin="flat" class="login-buttons btn-cadastro" role="button" aria-disabled="false" tabindex="0">
+                <x-label>Criar Usuário</x-label>
+            </x-button>
+        </div>
+    </x-card>
+
+</div>

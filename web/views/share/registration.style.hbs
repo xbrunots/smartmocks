@@ -1,0 +1,187 @@
+<script>
+    $('.header-header').css('display', 'none')
+    $('body').css('padding-top', '0px')
+
+    $(function () {
+        $('.btn-entrar').bind('click', function () {
+
+            var json = {
+                email: $('#login-email').val(),
+                password: $('#login-password').val(),
+            }
+            $.ajax({
+                url: '../api/login',
+                data: json,
+                type: 'POST',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.success) {
+                        alerta("Acesso concedido para " + res.data[0].username, "#109026")
+                        Token.set(res.data[0].token)
+                        window.location.href = "../index"
+
+                    } else {
+                        Token.set(null)
+                        alerta(res.message, "#000000")
+                    }
+                }
+            });
+            return false;
+        });
+    });
+
+    function validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    $(function () {
+        $('.btn-criar-usuario').bind('click', function () {
+            var pass1 = $("#register-password1").val()
+            var pass2 = $("#register-password2").val()
+            var name = $("#register-name").val()
+            var email = $("#register-email").val()
+            var json = {
+                email: email,
+                password: pass1,
+                username: name
+            }
+
+            console.log(json)
+            console.log(JSON.stringify(json))
+
+            if (pass1 == undefined || pass2 == undefined || pass1.length < 6 || pass2 < 6 || pass1 != pass2) {
+                alerta(`As senhas são pequenas ou diferentes...`, "#000000")
+                return
+            }
+
+            if (name == undefined || email == undefined) {
+                alerta(`Todos os campos são obrigatórios...`, "#000000")
+                return
+            }
+
+
+            if (name.length < 4) {
+                alerta(`Campo nome deve conter ao menos 4 letras...`, "#000000")
+                return
+            }
+
+
+            if (!validateEmail(email)) {
+                alerta(`Email invalido...`, "#000000")
+                return
+            }
+
+            $.ajax({
+                url: '../api/account',
+                data: json,
+                type: 'POST',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.success) {
+                        alerta("Parabéns! usuário " + res.data[0].username + " cadastrado com sucesso!", "#109026")
+                    } else {
+                        alerta(res.message, "#000000")
+                    }
+                }
+            });
+            return false;
+        });
+    });
+
+    $(document).on('click', '.btn-cadastro', function () {
+        window.location.href = "../register"
+    })
+
+    $(document).on('click', '.btn-ir-login', function () {
+        window.location.href = "../login"
+    })
+
+    function alerta(message, color) {
+        let notification = document.querySelector("#notification");
+        notification.style["background"] = color
+        notification.style["background-color"] = color
+        let input = document.querySelector("#input");
+        notification.innerHTML = message;
+        notification.opened = true;
+    }
+
+</script>
+
+<x-notification timeout="2000" style="
+    background: black;" id="notification"></x-notification>
+
+
+<style>
+    .login-card {
+        WIDTH: 400px;
+        padding-bottom: 20px;
+    }
+
+    .login-card>main>div {
+        height: 100px;
+        width: 100%;
+        background: black;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        border-radius: 3px 3px 0 0;
+    }
+
+    .login-card>main>div>img {
+        height: 60px;
+    }
+
+    .login-card>main {
+        padding: 0px;
+    }
+
+    .main-inputs {
+        width: 100%;
+        max-height: 260px;
+    }
+
+    .main-inputs-login {
+        width: 100%;
+        max-height: 200px;
+    }
+
+    .login-buttons {
+        width: 200px;
+        text-align: center;
+        margin-bottom: 10px;
+        border-radius: 40px;
+    }
+
+    .btn-entrar,
+    .btn-criar-usuario {
+        background: black;
+        color: white;
+        text-transform: lowercase;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn-cadastro,
+    .btn-ir-login {
+        text-transform: lowercase;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .btn-cadastro {
+        text-transform: lowercase;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .login-inputs {
+        min-width: 200px;
+        max-width: 200px;
+        font-weight: 800;
+        font-size: 16px;
+        mArgin-bottom: 10px;
+    }
+
+    .login-inputs-childrens {}
+</style>
