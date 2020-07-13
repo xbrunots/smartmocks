@@ -17,7 +17,7 @@ app.use('/', web);
 app.use('/api', account);
 
 
-app.get("/api/coe", function (req, response) {
+app.get("/smartlink/coe", function (req, response) {
 
     var settings = {
         androidStore: "https://install.appcenter.ms/users/xbrunots/apps/responsys/distribution_groups/android%20-%20coe%20delivery",
