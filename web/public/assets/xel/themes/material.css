@@ -5,6 +5,26 @@
  * @info
  *   Theme based on Material Design guidelines.
  */
+ @font-face {
+  font-family: 'Montserrat_Black';
+  src: url('/assets/fonts/Montserrat-Black.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat_Bold';
+  src: url('/assets/fonts/Montserrat-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat_Light';
+  src: url('/assets/fonts/Montserrat-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat_Regular';
+  src: url('/assets/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat_This';
+  src: url('/assets/fonts/Montserrat-This.ttf') format('truetype');
+}
 
  body {
   width: 100%;
@@ -12,13 +32,13 @@
   margin: 0;
   background: #eeeeee;
   color: var(--text-color);
-  font-family: "Roboto", "Noto Sans", sans-serif;
-  font-size: 15px;
+  font-family: Montserrat_Regular !important;
+  font-size: 12px;
   line-height: 1.6;
   overflow-y: overlay;
   --primary-color: #000000;
   --secondary-color:  #2196f3;
-  --accent-color: #ecec26;
+  --accent-color: #2196f3;
   --link-color: #009788;
   --text-color: rgba(0, 0, 0, 0.8);
   --transition-fn1: cubic-bezier(0.4, 0, 0.2, 1);
@@ -29,7 +49,13 @@
   --elevation-16: 0px  8px 10px -5px rgba(0,0,0,0.2), 0px 16px 24px 2px rgba(0,0,0,0.14), 0px 6px 30px 5px rgba(0,0,0,0.12);
   --elevation-24: 0px 11px 15px -7px rgba(0,0,0,0.2), 0px 24px 38px 3px rgba(0,0,0,0.14), 0px 9px 46px 8px rgba(0,0,0,0.12);
 }
-
+.cut-text { 
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  width: 160px; 
+  height: 1.2em; 
+  white-space: nowrap;
+}
 h2 {
   box-sizing: border-box;
   margin: 36px 0 20px 0;
@@ -682,16 +708,21 @@ x-tabs[skin="compact"] x-tab[selected] x-label {
  */
 
 x-doctabs {
-  background: var(--primary-color);
+  /**background: var(--primary-color); 
   color: white;
   height: 46px;
-  --open-button-path-d: path("M 80 11 L 20 12 C 15 12 12 15 12 20 L 12 80 C 12 85 15 88 20 88 L 80 88 C 85 88 88 85 88 80 L 88 20 C 88 15 85 12 80 12 Z M 71 54 L 54 54 L 54 71 L 46 71 L 46 54 L 29 54 L 29 46 L 46 46 L 46 29 L 54 29 L 54 46 L 71 46 L 71 54 Z");
+ /* --open-button-path-d: path("M 80 11 L 20 12 C 15 12 12 15 12 20 L 12 80 C 12 85 15 88 20 88 L 80 88 C 85 88 88 85 88 80 L 88 20 C 88 15 85 12 80 12 Z M 71 54 L 54 54 L 54 71 L 46 71 L 46 54 L 29 54 L 29 46 L 46 46 L 46 29 L 54 29 L 54 46 L 71 46 L 71 54 Z");
+*/
+height: 46px;
+
+border: 1px solid #c0c0c063;
 }
 
 x-doctab {
-  font-size: 14px;
-  font-weight: 500;
-  --ripple-type: bounded;
+ font-size: 13px;
+ font-weight: 600;
+ /* --ripple-type: bounded; */
+ padding: 0px;
 }
 
 x-doctab img {
@@ -710,6 +741,13 @@ x-doctab x-label {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --ripple-type: bounded !important;
+  height: 77%;
+  cursor: pointer;
 }
 
 x-doctab > * {
@@ -718,6 +756,18 @@ x-doctab > * {
 x-doctab[selected] > *,
 x-doctab:focus > * {
   opacity: 1;
+  background: #e8e8e8;
+  height: 77%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 60px;
+  --ripple-type: bounded;
+  transform: translate(0px, 0px);
+  transition: none 0s ease 0s;
+  font-weight: inherit;
+  color: #4d77c3;
 }
 x-doctab[disabled] > * {
   opacity: 0.5;

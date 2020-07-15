@@ -9,8 +9,8 @@ var jsonStruct = {
     data: []
 }
 
-function generateToken(id) {
-    var token = jwt.sign({ id }, process.env.SECRET, {
+function generateToken(id, email, photo, username) {
+    var token = jwt.sign({ id, email, photo, username }, process.env.SECRET, {
         expiresIn: process.env.TOKEN_TIME_OF_LIFE
     });
     return token
@@ -38,13 +38,17 @@ exports.login = (request, response, next) => {
         .then(res => {
             console.log(res.rows);
             if (res.rows.length > 0) {
-                var _token = generateToken(res.rows[0].user_id)
+                var _token = generateToken(
+                    res.rows[0].user_id,
+                    res.rows[0].email,
+                    res.rows[0].photo,
+                    res.rows[0].username)
                 response.cookie('token', _token);
                 response.cookie('user_id', res.rows[0].user_id);
                 jsonStruct.success = true
                 jsonStruct.token = _token
                 jsonStruct.data = res.rows
-                jsonStruct.data[0].password = null
+                delete (jsonStruct.data[0].password)
                 jsonStruct.message = "Sucesso!"
                 response.status(200).send(jsonStruct)
             } else {
@@ -111,12 +115,12 @@ exports.listAll = (request, response, next) => {
 
     jsonStruct.data = []
 
-    pool.query('SELECT * FROM account')
+    pool.query('SELECT * FROM account where user_id =' + request.userId)
         .then(res => {
 
             jsonStruct.success = true
             jsonStruct.data = res.rows
-            jsonStruct.data[0].password = null
+            delete (jsonStruct.data[0].password)
             jsonStruct.message = "Sucesso!"
             response.status(200).send(jsonStruct)
 
@@ -140,7 +144,7 @@ exports.getUserById = (request, response, next) => {
                 console.log(res.rows)
                 jsonStruct.success = true
                 jsonStruct.data = res.rows
-                jsonStruct.data[0].password = null
+                delete (jsonStruct.data[0].password)
                 jsonStruct.message = "Sucesso!"
                 response.status(200).send(jsonStruct)
             } else {

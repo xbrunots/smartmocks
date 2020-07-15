@@ -10,6 +10,9 @@ exports.verifyJWT = (req, res, next) => {
 
         // se tudo estiver ok, salva no request para uso posterior
         req.userId = decoded.id;
+        req.email = decoded.email;
+        req.photo = decoded.photo;
+        req.username = decoded.username;
         next();
     });
 }
@@ -28,6 +31,9 @@ exports.verifyCacheJWT = (req, res, next) => {
 
             // se tudo estiver ok, salva no request para uso posterior
             req.userId = decoded.id;
+            req.email = decoded.email;
+            req.photo = decoded.photo;
+            req.username = decoded.username;
             next();
         });
     } else {

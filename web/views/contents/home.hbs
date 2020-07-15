@@ -52,6 +52,8 @@
     .home_container>x-button>x-card>main>strong,
     .home_container>x-button>x-card>main>p {
         text-transform: initial;
+
+        height: 30px;
     }
 
     .home_container>x-button>x-card>main>p {
@@ -240,13 +242,57 @@
         $('.home-sidebar-new-project').animate({
             right: '0px'
         })
+
+        $('.header-header').animate({
+            top: '-50px'
+        })
+
     })
 
     $(document).on('click', '.home-sidebar-new-project>div>div>x-button', function () {
         $('.home-sidebar-new-project').animate({
             right: '-100%'
         })
+        $('.header-header').animate({
+            top: '0px'
+        })
+
     })
+
+    $(document).on('click', '#btn_confirm_new_project', function () {
+
+        console.log(Token.get())
+        if ($('#project-name').val().length > 5) {
+            var json = {
+                name: $('#project-name').val().trim(),
+                bundle: $('.new-project-input>span').text().trim()
+            }
+            console.log(json)
+            $.ajax({
+                url: '../api/projects',
+                data: json,
+                beforeSend: function (request) {
+                    request.setRequestHeader("x-access-token", Token.get());
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (res) {
+                    console.log(res)
+
+                    if (res.success) {
+                        window.location.reload(true);
+                    } else {
+                        alerta(res.message, "#000000")
+                    }
+                }
+            });
+        } else {
+            alerta("O nome do projeto deve ter ao menos 6 letras", "#000000")
+        }
+
+
+    })
+
 
     $(document).on('keyup', '.new-project-input', function (evt) {
         var keyPress = $('.new-project-input').val().trim()
@@ -257,10 +303,13 @@
         $('.new-project-input>span').html('   <i class="fas fa-rocket"></i>' + GLOBAL.removeAcentos(newName) + "-" + GLOBAL.ENCODE($(this).attr('tag')))
     })
 
+    function expandApp(bundle) {
+        window.location.href = window.location.origin + "/console?" + bundle
+    }
 
 </script>
 <div class="home-header-container">
-    <h1>Hey <p> @{{data.username}}</p>, seja bem vindo! <i class="far fa-grin-stars"></i></h1>
+    <h1>Hey <p> @{{data.username}}</p>, seja bem vindo! </h1>
 </div>
 <div class="home-projects-tools">
 
@@ -275,13 +324,12 @@
 <div class="home_container">
 
     {{#each projects}}
-    <x-button>
+    <x-button onclick="expandApp('{{bundle}}')">
         <x-card>
             <main>
-                <strong>{{name}}</strong>
-                <p>{{bundle}}</p>
+                <strong class="cut-text">{{name}}</strong>
+                <p class="cut-text"> {{bundle}}</p>
             </main>
-            <i class="fas fa-rocket"></i>
         </x-card>
     </x-button>
     {{/each}}
@@ -293,7 +341,7 @@
             <x-button skin="flat">
                 <x-icon class="new-project-title" name="close"></x-icon>
             </x-button>
-            <p class="new-project-title"> novo projeto (passo 1 de 2)</p>
+            <p class="new-project-title"> novo projeto</p>
         </div>
         <main class="new-project-main">
             <x-label class="new-project-name">De um nome ao seu projeto, isso pode ser alterado depois ;)</x-label>

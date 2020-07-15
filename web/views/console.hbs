@@ -1,0 +1,35 @@
+{{>header}}
+{{>navbar}}
+{{#data}}
+{{#if management}}
+<current-module>management</current-module>
+{{>embreve}}
+{{else if serverless}}
+<current-module>serverless</current-module>
+{{>serverless}}
+{{else if push-center}}
+<current-module>push-center</current-module>
+{{>embreve}}
+{{else if track-and-tag}}
+<current-module>track-and-tag</current-module>
+{{>embreve}}
+{{else if mock-server}}
+<current-module>mock-server</current-module>
+{{>embreve}}
+{{else if omini-gateway}}
+<current-module>omini-gateway</current-module>
+{{>embreve}}
+{{else if data-snapshot}}
+<current-module>data-snapshot</current-module>
+{{>embreve}}
+{{else if smartlinks}}
+<current-module>smartlinks</current-module>
+{{>embreve}}
+{{else if remote-config}}
+<current-module>remote-config</current-module>
+{{>embreve}}
+{{else}}
+{{>embreve}}
+{{/if}}
+{{/data}}
+{{>footer}}

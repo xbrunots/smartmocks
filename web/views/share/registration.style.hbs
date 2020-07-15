@@ -17,8 +17,8 @@
                 success: function (res) {
                     if (res.success) {
                         alerta("Acesso concedido para " + res.data[0].username, "#109026")
-                        Token.set(res.data[0].token)
-                        window.location.href = "../index"
+                        Token.set(res.token)
+                        window.location.href = "../apps"
 
                     } else {
                         Token.set(null)
@@ -115,6 +115,9 @@
     .login-card {
         WIDTH: 400px;
         padding-bottom: 20px;
+        animation: backInUp;
+        /* referring directly to the animation's @keyframe declaration */
+        animation-duration: 0.5s;
     }
 
     .login-card>main>div {
@@ -128,6 +131,7 @@
 
     .login-card>main>div>img {
         height: 60px;
+        margin-top: -20px;
     }
 
     .login-card>main {

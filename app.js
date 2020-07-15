@@ -7,21 +7,21 @@ const bodyParser = require('body-parser');
 
 //Rotas
 const web = require('./web/index');
-const account = require('./api/routes/account');
+const routes = require('./api/routes/routes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(useragent.express());
 
 
 app.use('/', web);
-app.use('/api', account);
+app.use('/api', routes);
 
 
 app.get("/smartlink/coe", function (req, response) {
 
-    var settings = {
+    var store = {
         androidStore: "https://install.appcenter.ms/users/xbrunots/apps/responsys/distribution_groups/android%20-%20coe%20delivery",
-        isiPhone: "https://install.appcenter.ms/users/xbrunots/apps/responsys/distribution_groups/ios%20-%20coe%20delivery",
+        isiPhone: "http://install.appcenter.ms/users/alessandro.lima-teceiro/apps/cea/distribution_groups/delivery%20mandalorian",
         desktop: "http://cea.com.br"
     }
 

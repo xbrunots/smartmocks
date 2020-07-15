@@ -1,0 +1,174 @@
+<style>
+    .navbar-console {
+        display: inline-flex;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        right: 0px;
+        top: 45px;
+        padding-left: 20px;
+        width: auto;
+    }
+
+    .navbar-console>span {
+        display: flex;
+        font-size: 15px;
+        font-weight: 600;
+        color: #00000061;
+        margin-right: 10px;
+    }
+
+    .navbar-console>.spanRight {
+        position: absolute;
+        right: 0px;
+        padding-right: 40px;
+    }
+
+    .navbar-console>span>img {
+        height: 20px;
+        filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(180deg);
+
+    }
+
+    .navbar-console>i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #00000061;
+
+    }
+
+    .navbar-console>span>x-label {
+        display: flex;
+        color: #4d77c3;
+    }
+
+    .spanRight>x-button {
+        background: white;
+        border: 2px solid black;
+        border-radius: 6px;
+        font-weight: 900;
+        cursor: pointer;
+    }
+
+    .spanRight>x-button>x-box>x-label {
+        font-weight: 900;
+    }
+
+    .console-container {
+        padding-bottom: 50px;
+        padding-top: 14px;
+    }
+
+    body {
+        width: 100% !important;
+        padding-left: 0px !important;
+        overflow: hidden;
+    }
+
+    :host([selected]) #selection-indicator {
+        background: #000000 !important !important;
+    }
+
+    .console-serveles-body {
+        padding-top: 120px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    current-module {
+        display: none;
+        opacity: 0;
+    }
+</style>
+<div class="navbar-console">
+
+    <span>
+        <x-label>apps</x-label>
+    </span>
+    <i class="fas fa-chevron-right"></i>
+    <span style="margin-left:10px;">
+        <img src="/assets/rocketbase_logo_transparent.png">
+        <x-label style="padding-left: 5px;">{{data.bundle}}</x-label>
+    </span>
+
+    <span class="spanRight" style="float:right">
+        <x-button tooltip="Cria uma instância de testes em Desenvolvimento" skin="nav">
+            <x-box>
+                <i class="fas fa-terminal"></i>
+                <x-label>run dev</x-label>
+            </x-box>
+        </x-button>
+        <x-button tooltip="Envia a versão atual para Produção" style="margin-left: 10px;" skin="nav">
+            <x-box>
+                <i class="fas fa-rocket"></i>
+                <x-label>deploy</x-label>
+            </x-box>
+        </x-button>
+    </span>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on("pointerdown", ".go-module", function () {
+            var module = window.location.search.replace("/", "") + "/" + $(this).parent().attr('data-module')
+            if (window.location.search.indexOf("/") != -1) {
+                module = window.location.search.split("/")[0] + "/" + $(this).parent().attr('data-module')
+            }
+
+            window.location.href =
+                window.location.origin +
+                window.location.pathname + module
+
+        })
+
+        $('[data-module="*"]').removeAttr("selected")
+        $('[data-module="' + $('current-module').html() + '"]').attr("selected", "true")
+
+
+    });
+
+</script>
+<div class="console-container">
+    <x-doctabs skin="flat">
+        <x-doctab data-module="management">
+            <x-label class="go-module">Management</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="serverless">
+            <x-label class="go-module">Serverless</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="remote-config">
+            <x-label class="go-module">Remote Config</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="push-center">
+            <x-label class="go-module">Push Center</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="track-and-tag">
+            <x-label class="go-module">Track and Tag</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="mock-server">
+            <x-label class="go-module">MockServer</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="omini-gateway">
+            <x-label class="go-module">Omni Gateway</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="data-snapshot">
+            <x-label class="go-module">DataSnapshot</x-label>
+        </x-doctab>
+
+        <x-doctab data-module="smartlinks">
+            <x-label class="go-module">Smartlinks</x-label>
+        </x-doctab>
+    </x-doctabs>
+</div>

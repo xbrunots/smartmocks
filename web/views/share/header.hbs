@@ -9,16 +9,41 @@
     <script src="/scripts/cache.js"></script>
     <script src="/scripts/life.js"></script>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Slab">
-
+    <link rel="stylesheet" href="assets/css/animate.css" />
     <link href="/assets/icons/css/all.css" rel="stylesheet">
     <!--load all styles -->
 
 
-    <link rel="icon" href="/assets/logo_transparent.png">
-    <link rel="icon" type="image/png" href="/assets/logo_transparent.png">
+    <link rel="icon" href="/assets/rocketbase_logo_transparent.png">
+    <link rel="icon" type="image/png" href="/assets/rocketbase_logo_transparent.png">
 
 
     <style>
+        @font-face {
+            font-family: 'Montserrat_Black';
+            src: url('/assets/fonts/Montserrat-Black.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat_Bold';
+            src: url('/assets/fonts/Montserrat-Bold.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat_Light';
+            src: url('/assets/fonts/Montserrat-Light.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat_Regular';
+            src: url('/assets/fonts/Montserrat-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat_This';
+            src: url('/assets/fonts/Montserrat-This.ttf') format('truetype');
+        }
+
         /* START TOOLTIP STYLES */
         [tooltip] {
             position: relative;
@@ -201,14 +226,7 @@
 
 
         /* UNRELATED to tooltips */
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            font-family: sans-serif;
-            background: #ededed;
-        }
+
 
         main {
             flex: 1 1 100vh;
@@ -248,9 +266,14 @@
             padding: .4em 1em;
         }
 
+        *,
+        body {
+            font-family: 'Montserrat_Regular';
+        }
 
         body {
-            font-family: 'Roboto Slab', serif !important;
+            width: 94%;
+            padding-left: 3%;
             background: #f3f3f3;
             padding-top: 44px;
         }
@@ -259,12 +282,46 @@
         .header-header {
             height: 44px;
             display: block;
-            background: black;
+            background: white;
             position: fixed;
             top: 0px;
             width: 100%;
             left: 0px;
             box-shadow: 0px 0px 5px black;
+            Z-INDEX: 99999999999;
+
+        }
+
+        .animateDown {
+
+            animation: fadeInDown;
+            /* referring directly to the animation's @keyframe declaration */
+            animation-duration: 0.5s;
+        }
+
+        .header-menubar-right {
+            cursor: pointer;
+
+            max-width: 80px;
+            float: right;
+            background: transparent;
+            height: 42px;
+            box-shadow: none !important;
+            height: 26px;
+            margin-top: 9px;
+            border-radius: 50px !important;
+        }
+
+        .header-header>line {
+            position: absolute;
+            width: 1000%;
+            height: 3px;
+            bottom: -2px;
+            background: rgb(82, 113, 255);
+            background: -moz-linear-gradient(90deg, rgba(82, 113, 255, 1) 0%, rgba(255, 87, 87, 1) 83%, rgba(255, 145, 77, 1) 100%);
+            background: -webkit-linear-gradient(90deg, rgba(82, 113, 255, 1) 0%, rgba(255, 87, 87, 1) 83%, rgba(255, 145, 77, 1) 100%);
+            background: linear-gradient(90deg, rgba(82, 113, 255, 1) 0%, rgba(255, 87, 87, 1) 83%, rgba(255, 145, 77, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5271ff", endColorstr="#ff914d", GradientType=1);
         }
 
         .header-header>div {
@@ -286,9 +343,14 @@
             border-color: #c0c0c03d;
         }
 
+        .header-menu-img {
+            width: 32px !important;
+            height: 32px !important;
+        }
+
         .header-header>div>.header-menu-img {
-            width: 32px;
-            height: 32px;
+            width: 32px !important;
+            height: 32px !important;
             background: #000000;
             border-radius: 50px;
             right: 14px;
@@ -306,63 +368,213 @@
             margin: 0;
             color: white;
             display: inline-table;
-            margin-top: 9px;
+            margin-top: 10px;
             margin-left: 5px;
-            font-size: 16px;
-            cursor: default;
+            text-transform: lowercase;
+            font-weight: 900;
+            font-size: 15px;
         }
 
         .header-logo {
             width: 32px;
             height: 32px;
-            background: #000000;
             border-radius: 50px;
             margin-top: 6px;
-            margin-left: 36px;
+        }
+
+        #btnhome,
+        #btnhome>img,
+        #btnhome>p {
+            cursor: pointer;
+            color: black;
+        }
+
+        #btnhome {
+
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: 20px;
+        }
+
+        .logo-load {
+            height: 100px;
+            position: absolute;
+            z-index: 3;
+            --animate-repeat: 180;
+            border-radius: 50%;
+        }
+
+        .logo-load2 {
+            height: 120px;
+            position: absolute;
+            z-index: 3;
+            --animate-repeat: 180;
+        }
+
+        .loaderH1 {
+            z-index: 102;
+            padding-top: 110px;
+            color: #000000;
+            font-size: 15px;
+            z-index: 102;
+            font-weight: 100;
         }
     </style>
+
+    <script>
+
+        const animateCSS = (element, animation, prefix = 'animate__') =>
+            // We create a Promise and return it
+            new Promise((resolve, reject) => {
+                const animationName = `${prefix}${animation}`;
+                const node = document.querySelector(element);
+
+                $(node).addClass(`${prefix}animated`);
+                $(node).addClass(animationName);
+
+                $(node).addClass(animationName);
+
+                // When the animation ends, we clean the classes and resolve the Promise
+                function handleAnimationEnd() {
+                    $(node).removeClass(`${prefix}animated`);
+                    $(node).removeClass(animationName);
+                    node.removeEventListener('animationend', handleAnimationEnd);
+
+                    resolve('Animation ended');
+                }
+                $(node).bind('animationend', handleAnimationEnd);
+            });
+
+
+        $(document).on('click', '#header-menu-show', function () {
+            if (parseInt($('.menu-header-perfil').css('top')) < 0) {
+                $('.menu-header-perfil').animate({
+                    top: '44px'
+                }, 200)
+            } else {
+                $('.menu-header-perfil').animate({
+                    top: '-200px'
+                }, 200)
+            }
+        })
+        $(document).on('mouseleave', '.menu-header-perfil', function () {
+            $('.menu-header-perfil').animate({
+                top: '-200px'
+            }, 200)
+        })
+        $(document).on('click', '#btnhome', function () {
+            window.location.href = window.location.origin + "/apps"
+        })
+
+        function progressLine() {
+
+            $('.header-header>line').animate({
+                width: '100%'
+            }, 1500)
+            setTimeout(function () {
+                $('#loader').fadeOut();
+            }, 1000);
+
+        }
+
+        document.write('<div id="loader"> <h1 class="loaderH1"> {{data.loading_prefix}} <strong>{{data.loading}}</strong></h1><img class="logo-load !important;" ' +
+            'src="/assets/rocketbase_logo_outbox.png"/> ' +
+            ' <img class="logo-load2 !important;" ' +
+            'src="/assets/rocketbase_logo_inbox.png"/></div>');
+        animateCSS('.logo-load', 'rotateInInfinite')
+        animateCSS('.logo-load2', 'rotateInInversefinite')
+        animateCSS('#loader', 'pulseInifite')
+
+    </script>
+
+    </div>
+
+    </script>
+
 </head>
 
-<body>
+<body onload="progressLine();">
     {{>global}}
-    <div class="header-header">
-        <div>
-            <img class="header-logo" src="/assets/logo_transparent.png" />
-            <p>Rocket Services</p>
+    <div class="header-header {{headerAnimation}}">
+        <div id="btnhome">
+            <img class="header-logo" src="/assets/rocketbase_logo_transparent.png" />
+            <p>Rocketbase</p>
         </div>
 
-        <x-menubar style="    
-    max-width: 200px;
-    float: right;
-    background: transparent;
-    color: white;
-    height: 42px;">
-            <x-menuitem style=" 
-">
-                <x-label style=" white-space: nowrap; 
-  width: 120px; 
-  overflow: hidden;
-  text-overflow: ellipsis; 
-    text-align: right;
-    padding-right: 10px; ">xbrunots </x-label>
+        <x-menubar class="header-menubar-right">
+            <x-menuitem id="header-menu-show">
                 <img class="header-menu-img" src="{{data.photo}}" />
-                <x-menu style=" width: 120px !important;">
 
-                    <x-menuitem>
-                        <x-label>Perfil</x-label>
-                    </x-menuitem>
-
-
-                    <x-menuitem>
-                        <x-label>Configurações</x-label>
-                    </x-menuitem>
-
-                    <hr>
-                    <x-menuitem onclick="GLOBAL.logoff();">
-                        <x-label>Logoff</x-label>
-                    </x-menuitem>
-                </x-menu>
-            </x-menuitem>
 
         </x-menubar>
+        <line></line>
+    </div>
+
+    <style>
+        .menu-header-perfil {
+            background: white;
+            min-width: 260px;
+            max-width: 300px;
+            position: fixed;
+            top: -200px;
+            z-index: 8;
+            right: 20px;
+            border-radius: 0 0 6PX 6PX;
+            BOX-SHADOW: 0 6PX 6PX #35353542;
+        }
+
+        .menu-header-perfil>x-menuitem {
+            cursor: pointer;
+        }
+
+        .menu-header-perfil>x-menuitem:hover {
+            background: #ededed;
+        }
+
+        #header-menu-show {
+            cursor: pointer !important;
+            border-radius: 40px;
+            width: 38px;
+            height: 38px;
+            padding: inherit;
+            padding-left: 3px;
+        }
+
+        .borderGradient {
+            border: solid 2px transparent !important;
+            background: rgb(82, 113, 255);
+            background: -moz-linear-gradient(90deg, rgba(82, 113, 255, 1) 0%, rgba(255, 87, 87, 1) 83%, rgba(255, 145, 77, 1) 100%) !important;
+            background: -webkit-linear-gradient(90deg, rgba(82, 113, 255, 1) 0%, rgba(255, 87, 87, 1) 83%, rgba(255, 145, 77, 1) 100%) !important;
+            background: linear-gradient(90deg, rgba(82, 113, 255, 1) 0%, rgba(255, 87, 87, 1) 83%, rgba(255, 145, 77, 1) 100%) !important filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5271ff", endColorstr="#ff914d", GradientType=1) !important;
+            background-origin: border-box background-clip: content-box, border-box !important;
+            box-shadow: 2px 1000px 1px #fff inset !important;
+        }
+
+        #loader {
+            position: fixed;
+            z-index: 99999;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffffbf;
+        }
+    </style>
+
+    <div class="menu-header-perfil">
+
+        <x-menuitem>
+            <x-label>Perfil</x-label>
+        </x-menuitem>
+
+
+        <x-menuitem>
+            <x-label>Configurações</x-label>
+        </x-menuitem>
+
+        <hr>
+        <x-menuitem onclick="GLOBAL.logoff();">
+            <x-label>Logoff</x-label>
+        </x-menuitem>
     </div>
