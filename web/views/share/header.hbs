@@ -87,14 +87,14 @@
     but this will also keep them from being obnoxious
     */
             min-width: 3em;
-            max-width: 21em;
+            max-width: 500px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             padding: 1ch 1.5ch;
             border-radius: .3ch;
             box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, 0.35);
-            background: #333;
+            background: #000000;
             color: #fff;
             z-index: 1000;
             /* absurdity 2 */
@@ -117,7 +117,7 @@
         [tooltip][flow^="up"]::before {
             bottom: 100%;
             border-bottom-width: 0;
-            border-top-color: #333;
+            border-top-color: #000;
         }
 
         [tooltip]:not([flow])::after,
@@ -397,7 +397,7 @@
         }
 
         .logo-load {
-            height: 100px;
+            height: 47px;
             position: absolute;
             z-index: 3;
             --animate-repeat: 180;
@@ -405,7 +405,7 @@
         }
 
         .logo-load2 {
-            height: 120px;
+            height: 60px;
             position: absolute;
             z-index: 3;
             --animate-repeat: 180;
@@ -413,7 +413,7 @@
 
         .loaderH1 {
             z-index: 102;
-            padding-top: 110px;
+            padding-top: 60px;
             color: #000000;
             font-size: 15px;
             z-index: 102;
@@ -466,6 +466,14 @@
             window.location.href = window.location.origin + "/apps"
         })
 
+        $(document).on('click', '.nav-span-app', function () {
+            window.location.href = window.location.origin + "/apps"
+        })
+        $(document).on('click', '.navbar-root', function () {
+            window.location.href = window.location.origin + "/apps"
+        })
+
+
         function progressLine() {
 
             $('.header-header>line').animate({
@@ -475,6 +483,9 @@
                 $('#loader').fadeOut();
             }, 1000);
 
+            if ($('current-module').text() != "console") {
+
+            }
         }
 
         document.write('<div id="loader"> <h1 class="loaderH1"> {{data.loading_prefix}} <strong>{{data.loading}}</strong></h1><img class="logo-load !important;" ' +
@@ -485,9 +496,10 @@
         animateCSS('.logo-load2', 'rotateInInversefinite')
         animateCSS('#loader', 'pulseInifite')
 
-    </script>
+        function selectModuleManagement() {
+            $(".go-module[data-module='management']").attr("selected", "selected");
+        }
 
-    </div>
 
     </script>
 
@@ -559,6 +571,8 @@
             align-items: center;
             justify-content: center;
             background: #ffffffbf;
+            top: 0px;
+            left: 0px;
         }
     </style>
 

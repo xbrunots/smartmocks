@@ -1,3 +1,283 @@
+<style>
+    .menuside {}
+
+    .api-menu-left {
+        width: 200px;
+        background: white;
+        height: calc(100% - 167px) !important;
+        left: 0px;
+        top: 167px;
+        position: absolute;
+    }
+
+
+    .api-menu-right {
+        width: 200px;
+        background: white;
+        height: calc(100% - 167px) !important;
+        right: 0px;
+        position: absolute;
+        top: 167px;
+
+    }
+
+    .console-serveles-body {
+        width: 100%;
+        height: calc(100% - 170px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .routes {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        height: calc(100% - 50px);
+        padding: 0px;
+        padding-top: 10px;
+        overflow-y: auto;
+    }
+
+    .routes>li {}
+
+    .routes>li>x-button>span>x-label {
+        font-weight: bold;
+        padding: 0px;
+    }
+
+    .routes>li>x-button>span>p {
+        padding: 0px;
+        margin: 0px;
+        font-size: 10px;
+    }
+
+    .routes>li>x-button>span {
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    .routes>li>x-button>img {
+        height: 20px;
+        filter: sepia(120%) saturate(150%) brightness(10%) hue-rotate(80deg);
+        color-scheme: auto;
+    }
+
+    .routes>li>x-button:hover {}
+
+    x-button:hover {
+
+        -webkit-transition-delay: 0s;
+        -moz-transition-delay: 0s;
+        -ms-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        transition-delay: 0s;
+    }
+
+    x-button {
+
+        -webkit-transition: .5s all;
+        -webkit-transition-delay: .5s;
+        -moz-transition: .5s all;
+        -moz-transition-delay: .5s;
+        -ms-transition: .5s all;
+        -ms-transition-delay: .5s;
+        -o-transition: .5s all;
+        -o-transition-delay: .5s;
+        transition: .5s all;
+        transition-delay: .s;
+    }
+
+    .routes>li>x-button:hover {
+
+        background: #5172ff1f;
+        color: #5172ff;
+    }
+
+    .routes>li>x-button {
+        width: 96%;
+        text-align: left;
+        font-size: 14px;
+        text-transform: inherit;
+        color: black;
+        border-radius: 7px;
+        padding-right: 10px;
+        margin: 2%;
+        font-weight: 100;
+        padding: 0px;
+        cursor: pointer;
+        padding-left: 10px;
+        padding-right: 10px;
+        border: 2px solid white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+    }
+
+    .route_selected:hover {
+        background: #5172ff1f !important;
+        color: #5172ff !important;
+
+    }
+
+    .route_selected {
+        background: #5172ff1f !important;
+        color: #5172ff !important;
+        border: 2px solid #5172ff !important;
+    }
+
+
+    .api-menu-center-top {
+        width: calc(100% - 400px);
+        background: white;
+        height: calc(100% - 167px) !important;
+        left: 200px;
+        border-right: 1px solid #f2f2f2;
+        position: absolute;
+        top: 167px;
+        border-left: 1px solid #f2f2f2;
+    }
+
+    .button-add-default {
+        width: 100%;
+        font-size: 11px;
+        color: black;
+        color: #5471fd !important;
+        border-radius: 0px !important;
+        font-weight: 700;
+        /* background: #b1b1b1 !important; */
+        box-shadow: none !important;
+        border: none;
+        border-bottom: 1PX SOLID #c0c0c059;
+        text-align: center;
+        padding-right: 14px;
+        cursor: copy;
+    }
+
+    .button-add-default>x-label {
+        width: 100%;
+        font-size: 11px;
+        color: black;
+        color: #5471fd !important;
+        border-radius: 0px !important;
+        font-weight: 700;
+        /* background: #b1b1b1 !important; */
+        box-shadow: none !important;
+        border: none;
+        text-align: left;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        text-transform: uppercase;
+    }
+
+    .button-add-default:hover {
+
+        background: #5172ff1f;
+        color: #5172ff;
+    }
+
+    .api-menu-center-bottom {}
+
+    .header-service-meio {}
+</style>
+
+<script>
+    function getRoutes() {
+        Routes.json().forEach(function (item) {
+
+            var routeObjs = '   <li> ' +
+                ' <x-button data-id="' + item.name + '" id="route' + item.id + '" skin="flat" class="button-default">' +
+                '<ic> <i class="fas fa-dice-d6"></i></ic>' +
+                ' <span> <x-label>' + item.name + '</x-label>' +
+                '  <p>' + item.visibility + '</p> </span>' +
+                '</x-button>            </li>'
+            $(".routes").append(routeObjs);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        getRoutes();
+
+
+        selectItemNavRoute(RouteEvents.get());
+    });
+    (function ($) {
+        $.fn.replaceClass = function (pFromClass, pToClass) {
+            return this.removeClass(pFromClass).addClass(pToClass);
+        };
+    }(jQuery));
+
+    $(document).on("click", ".routes>li>x-button", function () {
+
+        var bundle = window.location.search.split("/")[0];
+        var module = "/" + $(".nav-span-module>x-label").html();
+        var event = "/" + $(this).attr("data-id");
+        var search = bundle + module + event
+        window.location.href = window.location.origin + window.location.pathname + search
+
+    })
+
+
+    function selectItemNavRoute(id) {
+        $(".routes>li>x-button").removeClass("route_selected");
+        $("x-button[data-id='" + id + "'").addClass("route_selected");
+        $(".routes>li>x-button").find("ic").html(' <i class="fas fa-dice-d6"></i>')
+        $("x-button[data-id='" + id + "'").find("ic").html(' <i class="fas fa-cogs"></i>')
+    }
+
+</script>
+
 <div class="console-serveles-body">
-    <h1>Serveless Offline</h1>
+
+    <div class="api-menu-left menuside">
+        <!--  <x-button skin="flat" class="button-add-default">
+
+            <x-label>Criar rota</x-label>
+            <i class="fas fa-plus" style="
+    margin-right: 3px;"></i>
+        </x-button> -->
+
+        <x-accordion expanded>
+            <header class="button-add-default">
+                <x-label>Criar Rota</x-label>
+                <i class="fas fa-plus"></i>
+            </header>
+            <main>
+                <x-input style="border:none; background:transparent;">
+                    <i class="fas fa-dice-d6"></i>
+                    <x-label style="
+    padding-left: 20px;
+">Name</x-label>
+                </x-input>
+
+            </main>
+        </x-accordion>
+
+        <ul class="routes">
+        </ul>
+    </div>
+</div>
+
+
+<div class="api-menu-right menuside">
+
+</div>
+
+
+<div class="api-menu-center-top menuside">
+    <div class="header-service-meio">
+
+
+
+    </div>
+
+    <div class="api-menu-center-bottom menuside">
+
+    </div>
+
+
+
+
+
 </div>

@@ -7,6 +7,9 @@
         top: 45px;
         padding-left: 20px;
         width: auto;
+        width: 100%;
+        background: #f2f2f2;
+        padding-bottom: 35px;
     }
 
     .navbar-console>span {
@@ -54,10 +57,7 @@
         font-weight: 900;
     }
 
-    .console-container {
-        padding-bottom: 50px;
-        padding-top: 14px;
-    }
+    .console-container {}
 
     body {
         width: 100% !important;
@@ -82,17 +82,31 @@
         display: none;
         opacity: 0;
     }
+
+    .nav-span-module>x-label {}
 </style>
 <div class="navbar-console">
 
-    <span>
+    <span class="navbar-root">
         <x-label>apps</x-label>
     </span>
     <i class="fas fa-chevron-right"></i>
-    <span style="margin-left:10px;">
+    <span style="margin-left:10px;" class="nav-span-app">
         <img src="/assets/rocketbase_logo_transparent.png">
         <x-label style="padding-left: 5px;">{{data.bundle}}</x-label>
     </span>
+
+    <span class="nav-span-module">
+        <i class="fas fa-chevron-right" style="    font-size: 12px;
+    margin: 4px;margin-left: 0px;"></i>
+        <x-label style="padding-left: 5px;">{{data.module}}</x-label>
+    </span>
+
+    <script>
+        if ($(".nav-span-module>x-label").text() == "console") {
+            $(".nav-span-module").css("display", "none");
+        }
+    </script>
 
     <span class="spanRight" style="float:right">
         <x-button tooltip="Cria uma instância de testes em Desenvolvimento" skin="nav">
@@ -114,61 +128,65 @@
 <script>
     $(document).ready(function () {
 
-        $(document).on("pointerdown", ".go-module", function () {
-            var module = window.location.search.replace("/", "") + "/" + $(this).parent().attr('data-module')
-            if (window.location.search.indexOf("/") != -1) {
-                module = window.location.search.split("/")[0] + "/" + $(this).parent().attr('data-module')
+        $('.go-module').removeAttr("selected")
+        $('[data-module="' + $('current-module').html().toLowerCase() + '"]').attr("selected", "true")
+        $(document).on("pointerdown", ".go-module", function (e) {
+            if (e.button == 0) {
+                var module = window.location.search.replace("/", "") + "/" + $(this).attr('data-module')
+                if (window.location.search.indexOf("/") != -1) {
+                    module = window.location.search.split("/")[0] + "/" + $(this).attr('data-module')
+                }
+
+                window.location.href =
+                    window.location.origin +
+                    window.location.pathname + module
+
             }
-
-            window.location.href =
-                window.location.origin +
-                window.location.pathname + module
-
-        })
-
-        $('[data-module="*"]').removeAttr("selected")
-        $('[data-module="' + $('current-module').html() + '"]').attr("selected", "true")
-
-
+        });
     });
+    $('.console-serveles-body>h1').html($('current-module').html() + " temporariamente indisponível")
 
 </script>
 <div class="console-container">
     <x-doctabs skin="flat">
-        <x-doctab data-module="management">
-            <x-label class="go-module">Management</x-label>
+        <x-doctab class="go-module" data-module="management">
+            <x-label>Management</x-label>
         </x-doctab>
 
-        <x-doctab data-module="serverless">
-            <x-label class="go-module">Serverless</x-label>
+        <x-doctab class="go-module" data-module="services">
+            <x-label>Services</x-label>
         </x-doctab>
 
-        <x-doctab data-module="remote-config">
-            <x-label class="go-module">Remote Config</x-label>
+        <x-doctab class="go-module" data-module="remote-config">
+            <x-label>Remote Config</x-label>
         </x-doctab>
 
-        <x-doctab data-module="push-center">
-            <x-label class="go-module">Push Center</x-label>
+        <x-doctab class="go-module" data-module="distribution">
+            <x-label>Distribution</x-label>
         </x-doctab>
 
-        <x-doctab data-module="track-and-tag">
-            <x-label class="go-module">Track and Tag</x-label>
+        <x-doctab class="go-module" data-module="push-center">
+            <x-label>Push Center</x-label>
         </x-doctab>
 
-        <x-doctab data-module="mock-server">
-            <x-label class="go-module">MockServer</x-label>
+        <x-doctab class="go-module" data-module="track-and-tag">
+            <x-label>Track and Tag</x-label>
         </x-doctab>
 
-        <x-doctab data-module="omini-gateway">
-            <x-label class="go-module">Omni Gateway</x-label>
+        <x-doctab class="go-module" data-module="mock-server">
+            <x-label>MockServer</x-label>
         </x-doctab>
 
-        <x-doctab data-module="data-snapshot">
-            <x-label class="go-module">DataSnapshot</x-label>
+        <x-doctab class="go-module" data-module="omini-gateway">
+            <x-label>Omni Gateway</x-label>
         </x-doctab>
 
-        <x-doctab data-module="smartlinks">
-            <x-label class="go-module">Smartlinks</x-label>
+        <x-doctab class="go-module" data-module="data-snapshot">
+            <x-label>DataSnapshot</x-label>
+        </x-doctab>
+
+        <x-doctab class="go-module" data-module="smartlinks">
+            <x-label>Smartlinks</x-label>
         </x-doctab>
     </x-doctabs>
 </div>

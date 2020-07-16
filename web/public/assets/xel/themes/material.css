@@ -318,7 +318,7 @@ x-card main > p:first-child {
  */
 
 x-accordion {
-  --arrow-color: rgba(0, 0, 0, 0.38);
+  --arrow-color: rgba(255, 255, 255, 0.38);
   --focused-arrow-background: rgba(0, 0, 0, 0.08);
   --trigger-effect: ripple;
 }
@@ -328,7 +328,7 @@ x-accordion > header {
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  min-height: 48px;
+  min-height: 32px;
   padding: 10px 50px 10px 24px;
 }
 
@@ -734,7 +734,15 @@ x-doctab img {
 x-doctab x-icon {
   margin-right: 8px;
 }
-
+x-doctab x-label:hover{
+  border-radius:40px; 
+        color: #5172ff;
+        -webkit-transition-delay: 0s;
+        -moz-transition-delay: 0s;
+        -ms-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        transition-delay: 0s;
+}
 x-doctab x-label {
   flex: 1;
   width: 0; /* https://lists.w3.org/Archives/Public/www-style/2011Jan/0201.html */
@@ -748,6 +756,16 @@ x-doctab x-label {
   --ripple-type: bounded !important;
   height: 77%;
   cursor: pointer;
+        -webkit-transition: .5s all;
+        -webkit-transition-delay: .5s;
+        -moz-transition: .5s all;
+        -moz-transition-delay: .5s;
+        -ms-transition: .5s all;
+        -ms-transition-delay: .5s;
+        -o-transition: .5s all;
+        -o-transition-delay: .5s;
+        transition: .5s all;
+        transition-delay: .s;
 }
 
 x-doctab > * {

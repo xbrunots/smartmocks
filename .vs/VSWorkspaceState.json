@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\api",
+    "\\config",
+    "\\web",
+    "\\web\\views",
+    "\\web\\views\\contents",
+    "\\web\\views\\contents\\console"
+  ],
+  "SelectedNode": "\\web\\views\\contents\\console\\serverless.hbs",
+  "PreviewInSolutionExplorer": false
+}

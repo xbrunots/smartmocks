@@ -32,21 +32,46 @@ app.get('/:page', jwt.verifyCacheJWT, (req, res, next) => {
 
     var bundle = Object.keys(req.query)[0]
     var consoleRoute = "console"
+    var loadinMessage = "console"
     var animation = "___not___"
+    var module_event = ""
     if (bundle != undefined) {
         if (bundle.indexOf("/") != -1) {
             consoleRoute = bundle.split("/")[1]
+            loadinMessage = consoleRoute
+            if (bundle.split("/").length > 1) {
+                module_event = bundle.split("/")[2]
+                loadinMessage = consoleRoute + " " + module_event
+            }
+
             bundle = bundle.split("/")[0]
         }
     } else {
         animation = "animateDown"
     }
-    console.log("-----------------")
-    console.log(Object.keys(req.query)[0])
-    console.log(consoleRoute)
-    console.log(bundle)
-    console.log(animation)
-    console.log("-----------------")
+
+    if (module_event == undefined) {
+        loadinMessage = consoleRoute
+    } else {
+        loadinMessage = consoleRoute + "/" + module_event
+    }
+
+
+    var array_routes = [
+        { id: 0, name: "login", visibility: "public" },
+        { id: 1, name: "accounts", visibility: "public" },
+        { id: 2, name: "configs", visibility: "public" },
+        { id: 3, name: "home", visibility: "public" },
+        { id: 4, name: "products", visibility: "private" },
+        { id: 5, name: "clients", visibility: "private" },
+        { id: 6, name: "partners", visibility: "private" },
+        { id: 7, name: "clientStatus", visibility: "private" },
+        { id: 8, name: "productImages", visibility: "private" },
+        { id: 9, name: "bazar", visibility: "private" },
+        { id: 10, name: "market", visibility: "private" },
+        { id: 11, name: "crm", visibility: "private" },
+        { id: 12, name: "iccp12", visibility: "private" }
+    ]
 
 
     if (bundle != undefined) {
@@ -64,65 +89,53 @@ app.get('/:page', jwt.verifyCacheJWT, (req, res, next) => {
                     email: req.email,
                     photo: req.photo,
                     bundle: bundle,
+                    module: consoleRoute,
                     [consoleRoute]: consoleRoute,
-                    loading: consoleRoute,
-                    loading_prefix: "abrindo "
+                    loading: loadinMessage,
+                    loading_prefix: "abrindo ",
+                    array_routes: JSON.stringify(array_routes),
+                    module_event: module_event
                 },
                 projects: results,
                 size: sizeId
             }
-            console.log(jsonSendWeb)
 
+            console.log(jsonSendWeb)
             res.render(req.params.page, jsonSendWeb)
         });
     } else {
 
-        if (req.path == "/apple-app-site-association") {
-            res.json({
-                "applinks": {
-                    "apps": [],
-                    "details": [{
-                        "appID": "6K3965APXT.br.com.cea.appb2c",
-                        "paths": ["*"]
-                    }, {
-                        "appID": "6K3965APXT.br.com.cea.appb2c-dev",
-                        "paths": ["*"]
-                    }, {
-                        "appID": "6K3965APXT.br.com.cea.appb2c-homolog",
-                        "paths": ["*"]
-                    }]
+        if (checkView(req.params.page)) {
+            repository.getProjects(req, function (err, results) {
+                var sizeId = 0
+                if (results != null && results.length > 0) {
+                    sizeId = results[0].nameid
                 }
-            })
-        } else {
-            if (checkView(req.params.page)) {
-                repository.getProjects(req, function (err, results) {
-                    var sizeId = 0
-                    if (results != null && results.length > 0) {
-                        sizeId = results[0].nameid
-                    }
 
-                    res.render(req.params.page, {
-                        layout: false,
-                        config: routes.homeDark,
-                        headerAnimation: animation,
-                        data: {
-                            username: req.username,
-                            email: req.email,
-                            photo: req.photo
-                        },
-                        projects: results,
-                        size: sizeId
-                    })
-                });
-            } else {
-                res.render('error', {
+                res.render(req.params.page, {
                     layout: false,
-                    config: routes.homeDark
+                    config: routes.homeDark,
+                    headerAnimation: animation,
+                    data: {
+                        username: req.username,
+                        email: req.email,
+                        photo: req.photo,
+                        array_routes: array_routes
+                    },
+                    projects: results,
+                    size: sizeId
                 })
-            }
+
+
+                //console.log(jsonSendWeb)
+            });
+        } else {
+            res.render('error', {
+                layout: false,
+                config: routes.homeDark
+            })
         }
     }
-
 })
 
 
